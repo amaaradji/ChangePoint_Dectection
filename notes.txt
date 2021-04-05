@@ -1,0 +1,51 @@
+(1) Data pre-processing
+
+Dataset of sequences which needs to be splitted by time as follows:
+Dateset_1 -> Model_1
+Dateset_2 -> Model_2
+
+Then, build a Val and Test sets as follows:
+
+- Val: 2000 sequences sampled from Dateset_2 but not used to build Model_2.
+- Test: 2000 sequences sampled from Dateset_2 but not used to build Model_2.
+
+(2) Training and hyperparameters tuning
+
+Train Model_1 on Dateset_1 and tune hyperparameters on Val.
+Train Model_2 on Dateset_2 - (Val UNION Test) and tune hyperparameters on Val.
+
+
+
+(3) Buisness Process Model
+
+
+Buisness Process Model is defined as the probability of observing a given sequence (analog to Language Model).
+
+Buisness Process Model is estimated using the chain rule as follows:
+S1 = AABCA
+P(S1;Model_1) = P(A|AABC) * P(C|AAB) * P(B|AA) * P(A|A) * P(A)
+
+
+(4) Testing
+
+Test the two models on Test set (above) and compute the Buisness Process Model for each sequence.
+
+
+P(S1;Model_1) vs. P(S1;Model_2)
+P(S2;Model_1) vs. P(S2;Model_2)
+P(S3;Model_1) vs. P(S3;Model_2)
+P(S4;Model_1) vs. P(S4;Model_2)
+P(S5;Model_1) vs. P(S5;Model_2)
+.
+.
+.
+.
+P(S2000;Model_1) vs. P(S2000;Model_2)
+
+
+P(SXXXX;Model_1) is the first dist. [0.0045,0.445,0.4545.......]
+P(SXXXX;Model_2) is the second dist. [0.0055,0.045,0.1545.......]
+
+Compare the obtained distributions on the test sets using statistics, e.g., P-value.
+
+(5) What baselines for comparaison?
